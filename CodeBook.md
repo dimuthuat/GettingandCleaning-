@@ -7,32 +7,35 @@ Samsung Galaxy S smartphone. It uses the following dataset:https://d396qusza40or
 
 1. Downloading and loading data onto R
 
-This step uses RCurl package to download the file to the working directory. It is extracted to a file called excerData meaning 
+This step uses RCurl package to download the file to the working directory. It is extracted to a file called **excerData** meaning 
 exercise data and unzipped.
 
 
-2.  Activity and  features data are 
-activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt", col.names = c("ActivityNo","ActivityName"))
-activityLabels
-features <- read.table("UCI HAR Dataset/features.txt", col.names = c("CodeNo","featureName"))
-head(features)
+2.  Activity and features data from  are assigned to the variables 
 
-#load test data and assign them to "Test"
-subjectTest <- read.table("UCI HAR Dataset/test/subject_test.txt", col.names = "subjectNames")
-subjectTest
-Xtest <- read.table("UCI HAR Dataset/test/X_test.txt", col.names = features$featureName )
-head(Xtest)
-Ytest <- read.table("UCI HAR Dataset/test/y_test.txt", col.names = "CodeNo")
-head(Ytest) 
-Test <- cbind(subjectTest,Xtest,Ytest)
+* **activityLabels** :  
+Data from activity_labels.txt is assigned to this name, with column names with column names "ActivityNo" and "ActivityName". Contains the list of exercises performed.
+
+* **features** : 
+Data from features.txt is assigned to this name, with column names "CodeNo" and "featureName". Contains data features selected by the sensor signals.
 
 
-#load train data and assign them to "Train"
-subjectTrain <- read.table("UCI HAR Dataset/train/subject_train.txt", col.names = "subjectNames")
-subjectTrain
-Xtrain <- read.table("UCI HAR Dataset/train/X_train.txt", col.names = features$featureName)
-Xtrain
-Ytrain <- read.table("UCI HAR Dataset/train/y_train.txt", col.names = "CodeNo")
+3. Load test data and assign them to "Test"
+* **subjectTest** : Data from subject_test.txt" is assigned, with column name, "subjectNames".
+
+* **Xtest** : Data from X_test.txt is assigned with column name, features$featureName.
+
+* **Ytest** : Data from y_test.txt is assigned with column name, CodeNo.
+ 
+* **Test** : created by merging subjectTest, Xtest and Ytest with **cbind()** function. 
+
+
+4. Load train data and assign them to "Train"
+* **subjectTrain** : Data from subject_train.txt is assigned with column name, "subjectNames".
+
+* **Xtrain** : Data from X_train.txt is assigned with column name, features$featureName.
+
+* **Ytrain** : Data from y_train.txt is assigned  col.names = "CodeNo")
 head(Ytrain)
 Train <- cbind(subjectTrain, Xtrain, Ytrain)
 
