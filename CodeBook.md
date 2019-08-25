@@ -41,36 +41,42 @@ Data from features.txt is assigned to this name, with column names "CodeNo" and 
 
 * **Train** : Created by merging subjectTrain, Xtrain, Ytrain with **cbind()** function. 
 
-# 1. Merges the training and the test sets to create one data set.
+## 1. Merges the training and the test sets to create one data set.
 
 * **mergeData** : Created by merging Test and Train with **rbind()** function.
 
-# 2.Extracts only the measurements on the mean and standard deviation for each measurement.
+## 2.Extracts only the measurements on the mean and standard deviation for each measurement.
 
 * **mean_sd** : 
 Created by extracting mean and standard deviation from  mergeData by putting it through a pipeline of operations 
 using **dplyr** package. 
 
 
-# 3.Uses descriptive activity names to name the activities in the data set
+## 3.Uses descriptive activity names to name the activities in the data set
 
 * **descriptiveNames** : Created by subsetting CodeNo from mean_sd in activityLabels.  
          
-# 4.Appropriately labels the data set with descriptive variable names.
+## 4.Appropriately labels the data set with descriptive variable names.
          
 names(mergeData)[2] = "activityNames"
-* **names(mergeData)** : Created by first subsettling activityNames from names in mergedata  <- gsub("BodyBody", "Body",gsub("^t", "Time",gsub("^f","Frequency",gsub("Mag", "Magnitude", names(mergeData)))))
+* **names(mergeData)** : 
+Created by first subsettling activityNames from names in mergedata and then using gsub with a nested loop (with dplyr) to rename variables: 
+
+*  All "BodyBody" in column names are replaced with "Body". 
+*  All column names starting with "t" are replaced with "Time".
+*  All column names starting with  "f" are replaced with "Frequency".
+*  All "Mag" in column names are replaced with "Magnitude"
          
          
-#5.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+## 5.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
          
-FinalData <- mergeData %>%
-             group_by(subjectNames, activityNames) %>%
-             summarise_all(funs(mean))
+* **FinalData** :
+Created by sending mergeData through a pipeline of functions(with dplyr) to take the mean after grouped by subjectNames and activityNames).
+           
          
-write.table(FinalData, "FinalData.txt", row.name=FALSE)
+* **write.table** : Creates a text document from FinalData.
          
-str(FinalData)
+
          
          
          
